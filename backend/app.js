@@ -3,23 +3,34 @@ const express = require('express');
 const app = express();
 
 app.use((req, res, next) => {
-    console.log('Request sent');
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
     next();
-})
+  });
 
-app.use((req, res, next) => {
-    res.status(201);
-    next();
-})
-
-app.use((req, res, next) => {
-    res.json({ message: 'Your request was successful' });
-    next()
-})
-
-app.use((req, res, next) => {
-    console.log('Successful response sent successfully');
+app.use('/api/stuff', (req, res, next) => {
+    const stuff = [
+        {
+            _id: 'ghezhoi',
+            title: 'My first thing',
+            description: 'All of the info describing my first thing',
+            imageUrl: '',
+            price: '4900',
+            userId: 'ghezhoi',
+          },
+          {
+            _id: 'ghezhoiz',
+            title: 'My Second thing',
+            description: 'All of the info describing my second thing',
+            imageUrl: '',
+            price: '5900',
+            userId: 'ghezhoiz',
+          }
+    ];
+    res.status(200).json(stuff);
 });
+
 
 
 module.exports = app;
